@@ -2,7 +2,28 @@ import time
 import PySimpleGUI as pySG
 import virtual_assistant_app as asistente
 
-# pySG.theme('Dark Black')
+
+class Observador:
+    def actualizar_escucha(self, estado):
+        # Actualiza la imagen del micrófono según el valor de asistente.escuchando
+        if estado:
+            window['_MIC_'].update(image_filename='./images/listen-microphone.png')
+            window.refresh()
+        else:
+            window['_MIC_'].update(image_filename='./images/not-listen-microphone.png')
+            window.refresh()
+
+
+# Crear una instancia de la clase Observador
+observador = Observador()
+
+
+def init():
+    # tu código de inicialización del GUI aquí
+    asistente.registrar_observador(observador)
+
+init()
+
 
 layout = [
     [pySG.Image(
@@ -30,13 +51,6 @@ while True:
     if event == '_MIC_':
         asistente.run()
     elif event == pySG.WINDOW_CLOSED or event == 'Cancel':
-        break
-
-    # Actualiza la imagen del micrófono según el valor de escuchando
-    if asistente.escuchando:
-        window['_MIC_'].update(image_filename='./images/listen-microphone.png')
-    else:
-        window['_MIC_'].update(image_filename='./images/not-listen-microphone.png')
         break
 
 window.close()

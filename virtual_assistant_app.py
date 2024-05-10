@@ -3,10 +3,8 @@ import pyttsx3
 import pywhatkit
 import wikipedia
 import datetime as time
-import chistesESP as chistes
+import pyjokes as chistes
 import speech_recognition as speech
-
-escuchando: bool = False
 
 # Nombre del asistente
 name = 'nombre'  # TODO: Debes ingresar el nombre de tu asistente aquí
@@ -16,16 +14,17 @@ listener = speech.Recognizer()
 
 # Permite hablar con el usuario
 engine = pyttsx3.init()
+
 engine.setProperty('voice', 'spanish')
-
-rate = engine.getProperty('rate')
-engine.setProperty('rate', rate - 100)
-
-volume = engine.getProperty('volume')
-engine.setProperty('volume', volume + 0.50)
+#
+# rate = engine.getProperty('rate')
+# engine.setProperty('rate', rate - 100)
+#
+# volume = engine.getProperty('volume')
+# engine.setProperty('volume', volume + 0.50)
 
 voices = engine.getProperty('voices')
-engine.setProperty('voice', voices[1].id)
+engine.setProperty('voice', voices[4].id)
 
 # Configura el idioma de Wikipedia
 wikipedia.set_lang('es')
@@ -46,6 +45,17 @@ spanish_month = {
     'December': 'Diciembre'
 }
 
+observadores = []
+
+
+def registrar_observador(observador):
+    observadores.append(observador)
+
+
+def notificar_cambio_escucha(estado):
+    for observador in observadores:
+        observador.actualizar_escucha(estado)
+
 
 # Funciones de comandos
 def reproducir_musica(music):
@@ -53,28 +63,28 @@ def reproducir_musica(music):
     pywhatkit.playonyt(music)
 
 
-def indicar_hora():
+def indicar_hora(text):
     hora = time.datetime.now().strftime('%I:%M %p')
     talk('Son las ' + hora)
 
 
-def indicar_fecha():
+def indicar_fecha(text):
     fecha = time.datetime.now().strftime('%d-%h-%Y')
     talk('La fecha es: ' + fecha)
 
 
-def indicar_dia():
+def indicar_dia(text):
     dia = time.datetime.now().strftime('%d')
     talk('Hoy es el día ' + dia)
 
 
-def indicar_mes():
+def indicar_mes(text):
     mes = time.datetime.now().strftime('%B')
     mes_translate = spanish_month.get(mes, mes)  # Si el mes no está en el diccionario, devuelve el nombre en inglés
     talk('Estamos en el mes de ' + mes_translate)
 
 
-def indicar_anio():
+def indicar_anio(text):
     year = time.datetime.now().strftime('%Y')
     talk('Estamos en el ' + year)
 
@@ -95,12 +105,12 @@ def buscar_google(consulta):
     pywhatkit.search(consulta)
 
 
-def contar_chiste():
-    chiste = chistes.get_random_chiste()
+def contar_chiste(text):
+    chiste = chistes.get_joke(language='es', category='neutral')
     talk(chiste)
 
 
-def comando_no_entendido():
+def comando_no_entendido(text):
     talk('Disculpa, no te entiendo')
 
 
@@ -132,20 +142,21 @@ def talk(text):
 
 # Método que permite al asistente escuchar
 def listen():
-    global escuchando
+    global listener  # Asegurarse de que listener sea global
     recognizer = ""
     try:
         with speech.Microphone() as source:
             print('Escuchando...')
             talk(prompt_usuario())
-            voice = listener.listen(source)
+            voice = listener.record(source, duration=10)
+            notificar_cambio_escucha(estado=False)
             print('Reconociendo voz...')
             recognizer = listener.recognize_google(voice, language='es-MX')
             recognizer = recognizer.lower()
 
             if name in recognizer:
                 recognizer = recognizer.replace(name, '')
-            escuchando = True  # Activa la variable cuando está escuchando
+
     except speech.UnknownValueError:
         recognizer = 'No se pudo entender el audio'
     except speech.RequestError:
@@ -157,12 +168,12 @@ def listen():
 
 # Método que ejecuta al asistente
 def run():
+    notificar_cambio_escucha(estado=True)
     recognizer = listen()
-    print('Comando reconocido:', recognizer)
 
     for comando, funcion in comandos.items():
         if comando in recognizer:
             funcion(recognizer.replace(comando, ''))
             break
     else:
-        comando_no_entendido()
+        comando_no_entendido('No se entendio')
