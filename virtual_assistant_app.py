@@ -146,8 +146,8 @@ comandos = {
     'busca en google': buscar_google,
     'chiste': contar_chiste,
     'clima': indicar_clima,
-    'correo': enviar_correo,
-    'archivo': buscar_archivo
+    'envia un correo diciendo': enviar_correo,
+    'busca un archivo': buscar_archivo
 }
 
 

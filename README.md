@@ -6,17 +6,20 @@ Este es un asistente virtual en python realizado con el fin de poder dar un punt
 
 Para darle una orden al asistente debe decir la palabra clave que dispare la orden seguido de lo que desea, ejemplo: **Reproduce (billie elish)**, la apalabra "Reproduce" es la palabra clave que dispara la orden y "billie elish" es el complemento de la orden, con esta orden el asistente buscara "billie elish" en youtube, en la siguiente tabla puede encontrar las ordenes que puede recibir el asistente con ejemplos de como usarlo y la funcion que esta orden cumple.
 
-| Palabra clave     |  Ejemplo                |  Función              |
-|-------------------|:------------------------|----------------------:|
-| reproduce         |reproduce billie elish   |Reproduce billies elish en Youtube                                                               |
-| hora              |que hora es?             |Indica la hora actual  |
-| fecha             |que fecha es?            |Indica la fecha actual |
-| día               |en que día estamos       |Indica el día          |
-| mes               |en que mes estamos       |Indica el mes          |
-| año               |en que año estamos       |Indica el año          |
-| busca en wikipedia|busca en wikipedia python|Lee un poco sobre python en wikipedia                                                             |
-| busca en google   |busca en google python   |Busca en google sobre python|
-| chiste            |cuentame un chiste       |cuenta chistes aleatorios en español                                                               |
+| Palabra clave            | Ejemplo                   | Función                                      |
+|--------------------------|---------------------------|----------------------------------------------|
+| reproduce                | reproduce billie elish    | Reproduce Billie Eilish en Youtube           |
+| hora                     | que hora es?              | Indica la hora actual                        |
+| fecha                    | que fecha es?             | Indica la fecha actual                       |
+| día                      | en que día estamos        | Indica el día                                |
+| mes                      | en que mes estamos        | Indica el mes                                |
+| año                      | en que año estamos        | Indica el año                                |
+| busca en wikipedia       | busca en wikipedia python | Lee un poco sobre Python en Wikipedia        |
+| busca en google          | busca en google python    | Busca en Google sobre Python                 |
+| chiste                   | cuentame un chiste        | Cuenta chistes aleatorios en español         |
+| clima                    | dime el clima             | Indica el clima actual                       |
+| envia un correo diciendo | envia un correo diciendo | Envía un correo electrónico                  |
+| busca un archivo         | busca un archivo         | Busca un archivo                             |
 
     Nota: Puede agregar cuantas ordenes usted quiera que su asistente pueda entender y ejecutar.
 
