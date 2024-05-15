@@ -7,6 +7,7 @@ import pywhatkit
 import speech_recognition as speech
 import wikipedia
 
+import buscar_archivo_app as buscar
 import clima_app as clima_app
 import correo_app as correo
 
@@ -120,8 +121,13 @@ def indicar_clima(text):
 
 
 def enviar_correo(text):
-    resultado = correo.enviar_correo(text)
+    resultado = correo.enviar_correo(message=text)
     talk(resultado)
+
+
+def buscar_archivo(text):
+    mensaje = buscar.manangment_explorador(text)
+    talk(mensaje)
 
 
 def comando_no_entendido(text):
@@ -140,7 +146,8 @@ comandos = {
     'busca en google': buscar_google,
     'chiste': contar_chiste,
     'clima': indicar_clima,
-    'correo': enviar_correo
+    'correo': enviar_correo,
+    'archivo': buscar_archivo
 }
 
 
@@ -164,7 +171,7 @@ def listen():
         with speech.Microphone() as source:
             print('Escuchando...')
             talk(prompt_usuario())
-            voice = listener.record(source, duration=10)
+            voice = listener.record(source, duration=5)
             notificar_cambio_escucha(estado=False)
             print('Reconociendo voz...')
             recognizer = listener.recognize_google(voice, language='es-MX')

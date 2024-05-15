@@ -28,7 +28,3 @@ def enviar_correo(message):
     server.sendmail(msg['From'], msg['To'], msg.as_string())
     server.quit()
     return 'Correo enviado con éxito'
-
-
-# Llamada a la función para enviar correo
-enviar_correo()
