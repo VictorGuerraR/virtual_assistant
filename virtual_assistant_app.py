@@ -1,11 +1,14 @@
+import datetime as time
 import random
+
+import pyjokes as chistes
 import pyttsx3
 import pywhatkit
-import wikipedia
-import datetime as time
-import pyjokes as chistes
 import speech_recognition as speech
+import wikipedia
+
 import clima_app as clima_app
+import correo_app as correo
 
 # Nombre del asistente
 name = 'nombre'  # TODO: Debes ingresar el nombre de tu asistente aquí
@@ -110,9 +113,15 @@ def contar_chiste(text):
     chiste = chistes.get_joke(language='es', category='neutral')
     talk(chiste)
 
+
 def indicar_clima(text):
     clima = clima_app.obtener_estado_clima()
     talk(clima)
+
+
+def enviar_correo(text):
+    resultado = correo.enviar_correo(text)
+    talk(resultado)
 
 
 def comando_no_entendido(text):
@@ -130,7 +139,8 @@ comandos = {
     'busca en wikipedia': buscar_wikipedia,
     'busca en google': buscar_google,
     'chiste': contar_chiste,
-    'clima': indicar_clima
+    'clima': indicar_clima,
+    'correo': enviar_correo
 }
 
 
