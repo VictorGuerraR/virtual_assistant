@@ -5,6 +5,7 @@ import wikipedia
 import datetime as time
 import pyjokes as chistes
 import speech_recognition as speech
+import clima_app as clima_app
 
 # Nombre del asistente
 name = 'nombre'  # TODO: Debes ingresar el nombre de tu asistente aquí
@@ -109,6 +110,10 @@ def contar_chiste(text):
     chiste = chistes.get_joke(language='es', category='neutral')
     talk(chiste)
 
+def indicar_clima(text):
+    clima = clima_app.obtener_estado_clima()
+    talk(clima)
+
 
 def comando_no_entendido(text):
     talk('Disculpa, no te entiendo')
@@ -124,7 +129,8 @@ comandos = {
     'año': indicar_anio,
     'busca en wikipedia': buscar_wikipedia,
     'busca en google': buscar_google,
-    'chiste': contar_chiste
+    'chiste': contar_chiste,
+    'clima': indicar_clima
 }
 
 
