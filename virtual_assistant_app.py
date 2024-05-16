@@ -10,6 +10,7 @@ import wikipedia
 import buscar_archivo_app as buscar
 import clima_app as clima_app
 import correo_app as correo
+import abrir_aplicacion_escritorio as aae
 
 # Nombre del asistente
 name = 'nombre'  # TODO: Debes ingresar el nombre de tu asistente aquí
@@ -129,6 +130,9 @@ def buscar_archivo(text):
     mensaje = buscar.manangment_explorador(text)
     talk(mensaje)
 
+def abrir_app(text):
+    mensaje = aae.lanzar_ejecutable(text)
+    talk(mensaje)
 
 def comando_no_entendido(text):
     talk('Disculpa, no te entiendo')
@@ -147,7 +151,8 @@ comandos = {
     'chiste': contar_chiste,
     'clima': indicar_clima,
     'envia un correo diciendo': enviar_correo,
-    'busca un archivo': buscar_archivo
+    'busca un archivo': buscar_archivo,
+    'abre': abrir_app
 }
 
 

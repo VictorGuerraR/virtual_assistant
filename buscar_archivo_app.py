@@ -24,8 +24,6 @@ def abrir_archivo_con_explorador(ruta):
 
 
 def manangment_explorador(nombre):
-    print(nombre)
     ruta_del_archivo = buscar_archivo_en_pc(nombre_archivo=nombre.strip())
-    print(ruta_del_archivo)
     mesaje = abrir_archivo_con_explorador(ruta=ruta_del_archivo)
     return mesaje
